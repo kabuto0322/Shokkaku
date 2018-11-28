@@ -58,9 +58,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         //CURRENT_DATE はUTCらしく9時間時差がある
         sb.append("month  TEXT DEFAULT CURRENT_DATE NOT NULL,");
         sb.append("price INTEGER  NOT NULL CHECK(price > 0),");
-        sb.append("memo  TEXT  DEFAULT 'なし' NOT NULL,");
+        //sb.append("memo  TEXT  DEFAULT 'なし' NOT NULL,");
         sb.append("shopId INTEGER NOT NULL ,");
-        sb.append("vegetablesId INTEGER  NOT NULL,");
+        sb.append("vegetablesId INTEGER NOT NULL,");
         sb.append("foreign key(shopId) REFERENCES shopName_t(shopId ),");
         sb.append("foreign key (vegetablesId) REFERENCES vegetablesList_t(vegetablesId)");
         sb.append(");");
@@ -90,7 +90,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "('なめこ','肉厚でカサの大きさがなるべくそろっているもの')," +
                 "('れんこん','皮にツヤがあり褐色～黄色の自然な色味で穴が小さくサイズがそろっていて肉厚なもの');";
         db.execSQL(vegInsert);
-        String infoInsert = "INSERT INTO vegetablesInfo_t(month,price,shopId,vegetablesId)" +
+        String buyInfoInsert = "INSERT INTO vegetablesInfo_t(month,price,shopId,vegetablesId)" +
                 "VALUES ('2015-11-12',120,2,1)," +
                 "('2015-11-12',120,2,1)," +
                 "('2018-11-12',130,2,1)," +
@@ -100,7 +100,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "('2015-11-12',160,2,5)," +
                 "('2015-11-12',190,3,6)," +
                 "('2015-11-12',180,2,7)" ;
-        db.execSQL(infoInsert);
+        db.execSQL(buyInfoInsert);
 
     }
     /**

@@ -3,6 +3,8 @@ package com.example.android.shokkaku;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTabHost;
@@ -16,6 +18,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TabHost;
 
@@ -30,6 +34,43 @@ public class FoodSeachActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         //ActionBarの「戻る」メニューをオプションメニューに追加
         actionBar.setDisplayHomeAsUpEnabled(true);
+
+
+        //DBを参照して登録されている店名からチェックボックスの生成
+        //データベースヘルパーオブジェクトを作成
+        DatabaseHelper helper = new DatabaseHelper(FoodSeachActivity.this);
+        //データベースヘルパーオブジェクトからデータベース接続オブジェクトを取得
+        SQLiteDatabase db = helper.getWritableDatabase();
+        //データがなかった時のために初期値を用意
+        String shopName = "";
+        Log.d("initCreateCheckbox","first");
+        try{
+            //店名の取得
+            String sql = "SELECT shopName FROM shopName_t";
+            //SQL文の実行
+            Cursor cursor = db.rawQuery(sql, null);
+            //SQL実行の戻り値であるカーソルオブジェクトをループさせてデータベース内のデータを取得
+            while (cursor.moveToNext()) {
+                //カラムのインデックス値を取得 引数はカラム名
+                int idxShopName = cursor.getColumnIndex("shopName");
+                //カラムのインデックス値をもとに実際のデータを取得
+                shopName = cursor.getString(idxShopName);
+                Log.d("CheckboxShopName",shopName);
+                //checkbox作成
+                CheckBox checkBox = new CheckBox(FoodSeachActivity.this);
+                //表示する文字を設定
+                checkBox.setText(shopName);
+
+                LinearLayout layout = (LinearLayout) findViewById(R.id.llParentCheckbox);
+                Log.d("LinearLayout","" + layout);
+                //LinearLayoutにチェックボックス追加
+                layout.addView(checkBox);
+            }
+
+        }finally {
+            //データベース接続オブジェクトの開放
+            db.close();
+        }
         }
     /**
      * タブの生成
