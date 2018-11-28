@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!--id:R値, showAsAction:アクションバーに表示させるかどうか, title:表示文字列-->
+    <item
+        android:id="@+id/menuListOptionByOrderItemName"
+        app:showAsAction="never"
+        android:title="@string/menu_list_options_order_item_name"/>
+
+    <item
+        android:id="@+id/menuListOptionByOrderShopName"
+        app:showAsAction="never"
+        android:title="@string/menu_list_options_order_shop_name"/>
+
+</menu>
