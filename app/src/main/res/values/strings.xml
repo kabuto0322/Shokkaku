@@ -7,5 +7,5 @@
     <string name="menu_list_options_order_item_name">商品名順</string>
     <string name="menu_list_options_order_shop_name">店名順</string>
     <string name="bt_top_page_back">タイトル画面へ</string>
-    <string name="tv_menu_unit">円</string>
+    <string name="unit_price">円</string>
 </resources>
